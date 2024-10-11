@@ -1,0 +1,18 @@
+version: "3.3"
+name: flask-base-api-project-structure
+
+services:
+
+  flask_app:
+    build:
+      context: ${CONTEXT}
+      dockerfile: ${DOCKERFILE}
+    image: ${IMAGE}
+    container_name: flask-base-api-project-structure
+    entrypoint: ${ENTRY_POINT}
+    ports:
+      - ${PORT}
+    environment:
+      - FLASK_ENV=${FLASK_ENV}
+      - FLASK_DEBUG=${FLASK_DEBUG}
+      - TZ=Europe/Stockholm
