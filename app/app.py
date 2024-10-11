@@ -14,6 +14,7 @@
 
 from json import load as json_load
 from flask import Flask, Blueprint, jsonify
+from flask_marshmallow import Marshmallow
 from flask_migrate import Migrate
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
@@ -22,6 +23,7 @@ from .config import Config
 
 db = SQLAlchemy()
 mg = Migrate()
+ma = Marshmallow()
 
 apiv1_bp = Blueprint(
     name="apiv1_bp",
@@ -42,6 +44,7 @@ def create_app(config_file=None):
 
     db.init_app(app)
     mg.init_app(app, db)
+    ma.init_app(app)
 
     # Register APIv1 blueprint to application.
     app.register_blueprint(apiv1_bp)
