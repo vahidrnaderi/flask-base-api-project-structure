@@ -13,7 +13,7 @@
 #    limitations under the License.
 
 from json import load as json_load
-from flask import Flask, Blueprint
+from flask import Flask, Blueprint, jsonify
 from flask_restful import Api
 
 from .config import Config
@@ -26,6 +26,8 @@ apiv1_bp = Blueprint(
 
 apiv1 = Api(apiv1_bp)
 
+from . import resources
+
 # Aplication factory structure
 def create_app(config_file=None):
     app = Flask(__name__)
@@ -35,4 +37,18 @@ def create_app(config_file=None):
 
     # Register APIv1 blueprint to application.
     app.register_blueprint(apiv1_bp)
+
+    @app.route('/api/v1/routes', methods=['GET'])
+    def list_routes():
+        output = []
+        for rule in app.url_map.iter_rules():
+            methods = ','.join(rule.methods)
+            output.append({
+                "endpoint": rule.endpoint,
+                "rule": rule.rule,
+                "methods": methods
+            })
+
+        return jsonify(output)
+
     return app
