@@ -1,12 +1,15 @@
 from flask_restful import Resource
 from flask import request, current_app
+
 from app.controllers.api.v1 import Controller
+from app.decorators import json_required
 from app.util import jsonify
 
 
 class Resource(Resource):
 
     # PUT api/v1/resources/{id}
+    @json_required
     def put(self, resource_id=None):
         """
         PUT api/v1/resources --> Not allowed.
@@ -19,6 +22,7 @@ class Resource(Resource):
 
     # GET api/v1/resources/?query={query}
     # GET api/v1/resources/{id}
+    @json_required
     def get(self, resource_id=None):
         """
         GET api/v1/resources/?query={query} --> Search query.
@@ -40,6 +44,7 @@ class Resource(Resource):
             return jsonify(status=404)
 
     # POST api/v1/resources/
+    @json_required
     def post(self):
         """
         POST api/v1/resources/ --> Create new resource.
@@ -51,6 +56,7 @@ class Resource(Resource):
         return Controller().create_resource()
 
     # DELETE api/v1/resources/{id}
+    @json_required
     def delete(self, resource_id=None):
         """
         DELETE api/v1/resources --> Not allowed.
