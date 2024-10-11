@@ -4,5 +4,6 @@ Flask-Migrate==4.0.7
 Flask-RESTful==0.3.10
 Flask-SQLAlchemy==3.1.1
 marshmallow-sqlalchemy==1.1.0
+pytest==8.3.3
 python-dotenv==1.0.1
 watchdog==5.0.3
